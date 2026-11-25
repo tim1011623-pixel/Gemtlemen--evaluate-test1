@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>口咽肌肉訓練計數（原型）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>口咽肌肉訓練計數</h1>
+    <p class="exercise"><span id="exName">嘟嘴</span>：<span id="exHint"></span></p>
+  </header>
+
+  <main>
+    <div class="stage">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="calibBanner" class="banner" hidden></div>
+    </div>
+
+    <section class="panel">
+      <div class="count"><span id="count">0</span><small>下</small></div>
+      <div class="bar" aria-label="動作幅度">
+        <div id="barFill" class="fill"></div>
+        <div class="mark" style="left:75%" title="75% 門檻"></div>
+      </div>
+      <p id="hold" class="hold">維持 0.0 / 3 秒</p>
+      <p id="message" class="message">按「開啟相機」開始</p>
+
+      <div class="buttons">
+        <button id="startBtn">開啟相機</button>
+        <button id="calibBtn" disabled>校正（放鬆 3 秒、盡力 3 秒）</button>
+        <button id="resetBtn" disabled>次數歸零</button>
+      </div>
+      <label class="setting">維持秒數
+        <select id="holdSel">
+          <option value="2">2 秒</option>
+          <option value="3" selected>3 秒</option>
+          <option value="5">5 秒</option>
+          <option value="10">10 秒</option>
+        </select>
+      </label>
+      <p id="status" class="status">尚未開啟相機</p>
+      <details id="evaluation">
+  <summary>評估模式（隊內測試）</summary>
+
+  <p>每次只記錄一個動作。受測者先放鬆，觀察者再按開始。</p>
+
+  <label>
+    受測代號
+    <input id="evalParticipant" type="text" placeholder="例如 P1" maxlength="4">
+  </label>
+
+  <label>
+    光線
+    <select id="evalLight">
+      <option value="一般室內光">一般室內光</option>
+      <option value="較暗">較暗</option>
+    </select>
+  </label>
+
+  <div class="buttons">
+    <button id="evalStart" type="button">開始記錄這一下</button>
+    <button id="evalValid" type="button" disabled>人工判定：合格</button>
+    <button id="evalInvalid" type="button" disabled>人工判定：不合格</button>
+    <button id="evalCancel" type="button" disabled>取消這一下</button>
+    <button id="evalDownload" type="button" disabled>下載 CSV</button>
+  </div>
+
+  <p id="evalMessage" role="status">請先完成校正，再開始測試。</p>
+</details>
+    </section>
+  </main>
+
+  <footer>
+    <p>動作示範請參考成大物治系洪菁霞老師的口咽肌肉訓練教學影片（經同意引用）：
+      <a href="https://reurl.cc/7YgbdD" target="_blank" rel="noopener">影片連結</a></p>
+    <p>本工具是口咽肌肉訓練的練習輔助，不提供診斷或治療。影像只在你的裝置上處理，不會上傳。</p>
+    <p>臉部特徵點：MediaPipe Face Landmarker（Apache 2.0）。</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
