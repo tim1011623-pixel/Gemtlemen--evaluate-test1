@@ -20,58 +20,115 @@
     </div>
 
     <section class="panel">
-      <div class="count"><span id="count">0</span><small>下</small></div>
-      <div class="bar" aria-label="動作幅度">
-        <div id="barFill" class="fill"></div>
-        <div class="mark" style="left:75%" title="75% 門檻"></div>
+      <div class="practice-settings">
+        <label class="setting">選擇動作
+          <select id="exerciseSel">
+            <option value="pucker">章魚吸盤（嘟嘴）</option>
+            <option value="mouthOpen">鬚鯨掠食（張大嘴）</option>
+            <option value="smile">一笑呷百二（咧嘴笑）</option>
+            <option value="leftCheek">河豚鼓鼓（鼓左臉頰）</option>
+          </select>
+        </label>
+        <div class="setting-pair">
+          <label class="setting">目標次數
+            <select id="targetSel">
+              <option value="5">5 下</option>
+              <option value="10" selected>10 下</option>
+              <option value="15">15 下</option>
+              <option value="20">20 下</option>
+            </select>
+          </label>
+          <label class="setting">維持秒數
+            <select id="holdSel">
+              <option value="2">2 秒</option>
+              <option value="3" selected>3 秒</option>
+              <option value="5">5 秒</option>
+              <option value="10">10 秒</option>
+            </select>
+          </label>
+        </div>
       </div>
-      <p id="hold" class="hold">維持 0.0 / 3 秒</p>
-      <p id="message" class="message">按「開啟相機」開始</p>
 
-      <div class="buttons">
-        <button id="startBtn">開啟相機</button>
-        <button id="calibBtn" disabled>校正（放鬆 3 秒、盡力 3 秒）</button>
-        <button id="resetBtn" disabled>次數歸零</button>
+      <div class="buttons primary-actions">
+        <button id="startBtn" type="button">開啟相機</button>
+        <button id="calibBtn" type="button" disabled>校正</button>
       </div>
-      <label class="setting">維持秒數
-        <select id="holdSel">
-          <option value="2">2 秒</option>
-          <option value="3" selected>3 秒</option>
-          <option value="5">5 秒</option>
-          <option value="10">10 秒</option>
-        </select>
-      </label>
-      <p id="status" class="status">尚未開啟相機</p>
-      <details id="evaluation">
-  <summary>評估模式（隊內測試）</summary>
 
-  <p>每次只記錄一個動作。受測者先放鬆，觀察者再按開始。</p>
+      <div class="practice-feedback">
+        <div class="count"><span id="count">0</span><small> / <span id="countTarget">10</span> 下</small></div>
+        <p class="bar-label" id="amplitudeLabel">動作幅度</p>
+        <div class="bar" aria-labelledby="amplitudeLabel" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="amplitudeBar">
+          <div id="barFill" class="fill"></div>
+          <div class="mark" style="left:75%" title="75% 門檻"></div>
+        </div>
+        <p id="hold" class="hold">維持 0.0 / 3 秒</p>
+        <p id="message" class="message">按「開啟相機」開始</p>
+        <p id="status" class="status">尚未開啟相機</p>
+      </div>
 
-  <label>
-    受測代號
-    <input id="evalParticipant" type="text" placeholder="例如 P1" maxlength="4">
-  </label>
-
-  <label>
-    光線
-    <select id="evalLight">
-      <option value="一般室內光">一般室內光</option>
-      <option value="較暗">較暗</option>
-    </select>
-  </label>
-
-  <div class="buttons">
-    <button id="evalStart" type="button">開始記錄這一下</button>
-    <button id="evalValid" type="button" disabled>人工判定：合格</button>
-    <button id="evalInvalid" type="button" disabled>人工判定：不合格</button>
-    <button id="evalCancel" type="button" disabled>取消這一下</button>
-    <button id="evalDownload" type="button" disabled>下載 CSV</button>
-  </div>
-
-  <p id="evalMessage" role="status">請先完成校正，再開始測試。</p>
-</details>
+      <div class="buttons secondary-actions">
+        <button id="resetBtn" type="button" disabled>次數歸零</button>
+        <div class="speech-control">
+          <button id="speechBtn" type="button" aria-describedby="speechHint">語音：關</button>
+          <small id="speechHint" role="status">點我開啟語音輔助</small>
+        </div>
+      </div>
     </section>
   </main>
+
+  <details id="evaluation">
+    <summary>評估模式（隊內測試）</summary>
+    <div class="evaluation-content">
+      <p>每次記錄一個動作。先放鬆，再按「開始記錄這一下」。</p>
+      <p id="calibrationInfo">尚未校正</p>
+      <label>
+        受測代號
+        <input id="evalParticipant" type="text" placeholder="例如 P1" maxlength="4">
+      </label>
+      <label>
+        光線
+        <select id="evalLight">
+          <option value="一般室內光">一般室內光</option>
+          <option value="較暗">較暗</option>
+        </select>
+      </label>
+      <div class="buttons">
+        <button id="evalStart" type="button">開始記錄這一下</button>
+        <button id="evalValid" type="button" disabled>人工判定：合格</button>
+        <button id="evalInvalid" type="button" disabled>人工判定：不合格</button>
+        <button id="evalCancel" type="button" disabled>取消這一下</button>
+        <button id="evalDownload" type="button" disabled>下載 CSV</button>
+      </div>
+      <p id="evalMessage" role="status">請先完成校正，再開始測試。</p>
+    </div>
+  </details>
+
+  <!-- 最近 7 天的每日動作紀錄 -->
+  <section class="history" aria-labelledby="historyTitle">
+    <h2 id="historyTitle">最近 7 天的練習紀錄</h2>
+
+    <p class="historyNote">
+      紀錄只保存在這個瀏覽器的本機，不會上傳，也不包含影像。
+    </p>
+
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">日期</th>
+            <th scope="col">動作</th>
+            <th scope="col">完成次數</th>
+          </tr>
+        </thead>
+
+        <tbody id="dailyRecordsBody">
+          <tr>
+            <td colspan="3">載入紀錄中…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <footer>
     <p>動作示範請參考成大物治系洪菁霞老師的口咽肌肉訓練教學影片（經同意引用）：

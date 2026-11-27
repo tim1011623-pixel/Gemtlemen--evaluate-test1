@@ -55,3 +55,161 @@ select { font: inherit; padding: 4px 8px; }
 .status { font-size: .9rem; color: var(--muted); }
 footer { margin-top: 24px; font-size: .85rem; color: var(--muted); max-width: 960px; }
 footer a { color: var(--accent); }
+
+/* 最近 7 天紀錄表格 */
+.history {
+  max-width: 960px;
+  margin-top: 24px;
+}
+.history h2 {
+  font-size: 1.3rem;
+  margin: 0 0 4px;
+}
+.historyNote {
+  color: var(--muted);
+  font-size: .9rem;
+  margin: 4px 0 12px;
+}
+.tableWrap {
+  overflow-x: auto;
+}
+.history table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+.history th,
+.history td {
+  padding: 10px 12px;
+  border: 1px solid var(--bar);
+  text-align: left;
+}
+.history th {
+  background: var(--bar);
+}
+/* 練習設定和回饋 */
+main {
+  align-items: start;
+  max-width: 1120px;
+}
+@media (min-width: 800px) {
+  main { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+}
+.panel { min-width: 0; }
+.practice-settings {
+  display: grid;
+  gap: 8px;
+}
+.practice-settings .setting {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.practice-settings select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #a5a9a2;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+}
+.setting-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.primary-actions { margin-top: 12px; }
+.practice-feedback { margin-top: 16px; }
+.count { font-size: clamp(3.75rem, 7vw, 5rem); }
+.bar-label { margin: 9px 0 0; color: var(--muted); font-size: 0.95rem; }
+.bar { margin-top: 4px; }
+.message { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+.message.needs-attention { color: #934110; }
+.status:empty { display: none; }
+.secondary-actions {
+  align-items: flex-start;
+  margin-top: 10px;
+}
+#resetBtn {
+  background: transparent;
+  color: var(--accent);
+}
+.speech-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+#speechHint {
+  position: relative;
+  padding: 5px 8px;
+  border: 1px solid #b6d8cb;
+  border-radius: 8px;
+  background: #edf7f2;
+  color: #234e42;
+  font-size: 0.8rem;
+  text-align: center;
+}
+#speechHint::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #edf7f2;
+  border-top: 1px solid #b6d8cb;
+  border-left: 1px solid #b6d8cb;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* 收合時只顯示開關，展開時保留右側操作空間。 */
+#evaluation {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  max-height: calc(100dvh - 24px);
+  padding: 8px 12px;
+  border: 1px solid #bdcfc7;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 16px #0002;
+  overflow: auto;
+  font-size: 0.95rem;
+}
+#evaluation[open] { width: 320px; }
+#evaluation summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding-block: 4px;
+}
+.evaluation-content { margin-top: 8px; }
+.evaluation-content p { margin: 8px 0; }
+.evaluation-content label { display: block; margin: 8px 0; }
+.evaluation-content input,
+.evaluation-content select { max-width: 100%; font: inherit; }
+#calibrationInfo { color: var(--muted); font-size: 0.85rem; }
+#evaluation .buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#evaluation button { padding: 7px 6px; }
+#evalStart { grid-column: 1 / -1; }
+
+@media (min-width: 1000px) {
+  body:has(#evaluation[open]) { padding-right: 348px; }
+}
+@media (max-width: 999px) {
+  body { padding-bottom: 72px; }
+  #evaluation {
+    top: auto;
+    bottom: 12px;
+    max-height: 45dvh;
+  }
+  body:has(#evaluation[open]) { padding-bottom: calc(45dvh + 24px); }
+}
