@@ -272,7 +272,7 @@ function calibrationTick(now, a) {
     banner.textContent = `${current.text}（剩 ${secondsLeft} 秒）`;
     if (current !== lastCalibrationStep) {
       lastCalibrationStep = current;
-      if (current.collect) speakMessage("可以開始了");
+      if (current.collect) speakMessage(current.collect === "rest" ? "請保持放鬆" : "可以開始了");
     }
     if (current.collect && Number.isFinite(a)) {
       samples[current.collect].push(a);
