@@ -120,7 +120,12 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
-.primary-actions { margin-top: 12px; }
+.primary-actions {
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 12px;
+}
+.primary-actions button { padding-inline: 12px; }
 .practice-feedback { margin-top: 16px; }
 .count { font-size: clamp(3.75rem, 7vw, 5rem); }
 .bar-label { margin: 9px 0 0; color: var(--muted); font-size: 0.95rem; }
@@ -128,10 +133,6 @@ main {
 .message { font-size: clamp(1.2rem, 3vw, 1.5rem); }
 .message.needs-attention { color: #934110; }
 .status:empty { display: none; }
-.secondary-actions {
-  align-items: flex-start;
-  margin-top: 10px;
-}
 #resetBtn {
   background: transparent;
   color: var(--accent);

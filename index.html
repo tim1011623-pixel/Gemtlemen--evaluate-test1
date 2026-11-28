@@ -52,6 +52,11 @@
       <div class="buttons primary-actions">
         <button id="startBtn" type="button">開啟相機</button>
         <button id="calibBtn" type="button" disabled>校正</button>
+        <button id="resetBtn" type="button" disabled>次數歸零</button>
+        <div class="speech-control">
+          <button id="speechBtn" type="button" aria-describedby="speechHint">語音：關</button>
+          <small id="speechHint" role="status">點我開啟語音輔助</small>
+        </div>
       </div>
 
       <div class="practice-feedback">
@@ -66,13 +71,6 @@
         <p id="status" class="status">尚未開啟相機</p>
       </div>
 
-      <div class="buttons secondary-actions">
-        <button id="resetBtn" type="button" disabled>次數歸零</button>
-        <div class="speech-control">
-          <button id="speechBtn" type="button" aria-describedby="speechHint">語音：關</button>
-          <small id="speechHint" role="status">點我開啟語音輔助</small>
-        </div>
-      </div>
     </section>
   </main>
 
